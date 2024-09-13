@@ -165,3 +165,124 @@ if __name__ == "__main__":
     cargar_edades()
     calcular_promedio_notas()
     calcular_costo_comedor()
+
+
+
+
+
+#PRACTICO NUMERO 2
+
+
+
+
+
+def mayor_unico(num1, num2, num3):
+    # Encuentra el mayor único entre tres números positivos
+    if (num1 > num2 and num1 > num3):
+        if (num2 < num1 and num3 < num1):
+            return num1
+    elif (num2 > num1 and num2 > num3):
+        if (num1 < num2 and num3 < num2):
+            return num2
+    elif (num3 > num1 and num3 > num2):
+        if (num1 < num3 and num2 < num3):
+            return num3
+    return "No existe un mayor único"
+
+def main_actividad1():
+    num1 = int(input("Ingrese el primer número positivo: "))
+    num2 = int(input("Ingrese el segundo número positivo: "))
+    num3 = int(input("Ingrese el tercer número positivo: "))
+    
+    resultado = mayor_unico(num1, num2, num3)
+    print("El mayor único es:", resultado)
+
+def es_fecha_valida(dia, mes, anio):
+    if mes < 1 or mes > 12:
+        return False
+    if dia < 1 or dia > 31:
+        return False
+    
+    if mes in [4, 6, 9, 11] and dia > 30:
+        return False
+    if mes == 2:
+        if (anio % 4 == 0 and anio % 100 != 0) or (anio % 400 == 0):
+            if dia > 29:
+                return False
+        else:
+            if dia > 28:
+                return False
+    return True
+
+def main_actividad2():
+    dia = int(input("Ingrese el día: "))
+    mes = int(input("Ingrese el mes: "))
+    anio = int(input("Ingrese el año: "))
+    
+    if es_fecha_valida(dia, mes, anio):
+        print("La fecha es válida.")
+    else:
+        print("La fecha no es válida.")
+
+def desglosar_cambio(compra, monto_entregado):
+    cambio = monto_entregado - compra
+    if cambio < 0:
+        return "Monto entregado es insuficiente"
+    
+    billetes = [500, 100, 50, 20, 10, 5]
+    resultado = {}
+    
+    for billete in billetes:
+        if cambio >= billete:
+            cantidad = cambio // billete
+            resultado[billete] = cantidad
+            cambio %= billete
+    
+    return resultado
+
+def main_actividad3():
+    compra = float(input("Ingrese el valor de la compra: "))
+    monto_entregado = float(input("Ingrese el monto entregado: "))
+    
+    cambio = desglosar_cambio(compra, monto_entregado)
+    
+    if isinstance(cambio, str):
+        print(cambio)
+    else:
+        print("Desglose del cambio:")
+        for billete, cantidad in cambio.items():
+            print(f"${billete}: {cantidad}")
+
+def calcular_precio_total(cantidad, descuento):
+    precio_unitario = 10
+    total = cantidad * precio_unitario
+    total_descuento = total * (1 - descuento / 100)
+    return total_descuento
+
+def emitir_recibo(cantidad):
+    descuentos = [5, 15, 20]
+    print("Nombre de la empresa: Zapallos SA")
+    print("Tipo de moneda: Pesos")
+    for descuento in descuentos:
+        total_a_pagar = calcular_precio_total(cantidad, descuento)
+        print(f"Total a pagar con {descuento}% de descuento: ${total_a_pagar:.2f}")
+
+def main_actividad4():
+    cantidad = int(input("Ingrese la cantidad de zapallos: "))
+    emitir_recibo(cantidad)
+
+def main():
+    print("Ejecutando Actividad 1: Mayor Único")
+    main_actividad1()
+    
+    print("\nEjecutando Actividad 2: Verificar Fecha Válida")
+    main_actividad2()
+    
+    print("\nEjecutando Actividad 3: Desglosar Cambio")
+    main_actividad3()
+    
+    print("\nEjecutando Actividad 4: Precio con Descuentos")
+    main_actividad4()
+
+if __name__ == "__main__":
+    main()
